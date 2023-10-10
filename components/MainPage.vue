@@ -8,10 +8,10 @@
       </h1> -->
       <div class="bg-gray-300 justify-content-center shadow-lg sm:rounded-lg p-12">
         <p class="m-6 h1 text-center text-gray-500">
-          {{ number }} clicks have been done until now.<br> <br> <br/> <br>
+          {{ format(number) }} clicks have been done until now.<br> <br> <br/> <br>
         </p>
         <div class="row justify-center">
-          <b-button class="bg-gray-900 sm:rounded-lg" @click="onAddClick">
+          <b-button class="bg-gray-900 sm:rounded-lg" :disabled="clicking" @click="onAddClick">
             <p class="h4 text-gray-400 mt-1">
               Click here!
             </p>
@@ -28,6 +28,9 @@
       </p>
       <p class="text-center mb-5">
         <a class="text-gray-500 mx-auto" href="https://paypal.me/roctoooo?country.x=AR&locale.x=es_XC"> paypal.me </a> <br>
+      </p>
+      <p class="h6 text-center mb-5 text-gray-600">
+        Note that the button is in sort-of slow mode, so not every click does necessarily count.
       </p>
       <footer class="flex justify-center space-x-3 mb-5 fixed-bottom">
         <a href="https://github.com/octi14/universal-click-counter" target="_blank"><svg
@@ -58,23 +61,31 @@
 
 <script>
 export default {
-  data() {
+  data(){
     return{
-      number: null,
+      clicking: false,
     }
   },
   async fetch() {
     await this.$store.dispatch('number/get')
     this.number = this.$store.state.number.number.number
   },
+  computed: {
+    number(){
+      return this.$store.state.number.number.number
+    }
+  },
   methods: {
     async onAddClick() {
+      this.clicking = true
       try{
         await this.$store.dispatch('number/update')
       }catch(e){
       }
-      this.$store.dispatch('number/get')
-      this.number = this.$store.state.number.number.number
+      this.clicking = false
+    },
+    format(number) {
+      return new Intl.NumberFormat('en-US').format(number);
     }
   },
 }

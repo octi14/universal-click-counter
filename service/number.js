@@ -1,11 +1,11 @@
 const formatNumber = (NumberResponse) => ({
-  number: NumberResponse[0].thenumber
+  number: NumberResponse.thenumber
 })
 
 module.exports = {
   get: async (axios) => {
     const number = await axios.$get('/number', {})
-    return formatNumber(number.data)
+    return formatNumber(number.data[0])
   },
   update: async (axios) => {
     axios.setHeader('Access-Control-Allow-Origin', true)

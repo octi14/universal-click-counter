@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'universal-click-counter',
+    title: 'The Click',
     htmlAttrs: {
       lang: 'en'
     },
@@ -32,7 +32,6 @@ export default {
   ],
 
   axios: {
-    // baseURL: 'https://redeterminacion-back.herokuapp.com/',
     baseURL: 'http://localhost:5000/',  // Used as fallback if no runtime config is provided
   },
   // Modules: https://go.nuxtjs.dev/config-modules

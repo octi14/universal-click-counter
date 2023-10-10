@@ -9,19 +9,13 @@ export const actions = {
     const number = await NumberService.get(this.$axios, {})
     commit('setNumber', number)
   },
-  async update() {
+  async update({ commit, state}) {
     try {
-      await NumberService.update(this.$axios)
+      const response = await NumberService.update(this.$axios)
+      commit('setNumber', response)
     } catch (e) {
       throw new Error('Error actualizando')
     }
-  },
-  async delete({ commit, state }, { id, userToken }) {
-    const deleted = await IndiceService.delete(this.$axios, {
-      id,
-      userToken,
-    })
-    return deleted
   },
 
 }
